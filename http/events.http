@@ -1,0 +1,44 @@
+### Get events
+
+GET http://localhost:8080/events
+
+### Get event by  id
+
+GET http://localhost:8080/events/id
+
+### create a new event
+
+POST http://localhost:8080/events
+content-type: application/json
+
+{
+  "name": "concierto",
+  "description": "descirpcion del concierto",
+  "address": "miami",
+  "city": "miamia",
+  "type": "concierto",
+  "poster": "",
+  "images": [],
+  "date": "2020-12-31T15:53:16"
+}
+
+### Update a event
+
+PUT http://localhost:8080/events/670890a4f15c8707c334e885
+content-type: application/json
+
+{
+    "id": "670890a4f15c8707c334e885",
+    "name": "concierto",
+    "description": "descirpcion del concierto",
+    "address": "miami",
+    "city": "miamia",
+    "type": "concierto",
+    "poster": "",
+    "images": [],
+    "date": "2025-12-31T15:53:16"
+}
+
+### Delete a event
+
+DELETE http://localhost:8080/events/670890ebf15c8707c334e886

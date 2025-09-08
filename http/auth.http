@@ -1,0 +1,40 @@
+### register
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "firstname": "camilo",
+  "lastname": "davila",
+  "username": "camilo",
+  "address": "address",
+  "email": "camilodavina@gmail.com",
+  "password": "password",
+  "dateOfBirth": "1990-01-01"
+}
+
+### login
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "camilodavina@gmail.com",
+  "password": "cambiarcontra"
+}
+
+### generate password reset link
+POST http://localhost:8080/auth/generate
+Content-Type: application/json
+
+{
+  "email": "camilodavina@gmail.com"
+}
+
+### recover password
+
+POST http://localhost:8080/auth/recover
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzM4NCJ9.eyJpZCI6IjY3MDg4ZDMxZjE1Yzg3MDdjMzM0ZTg4MCIsImVtYWlsIjoiY2FtaWxvZGF2aW5hQGdtYWlsLmNvbSIsImFjdGlvbiI6InJlc2V0LXBhc3N3b3JkIiwiaWF0IjoxNzI4NjEzNzQ3LCJleHAiOjE3Mjg2MTczNDd9.NHLcXSBAM-x3ee46rhpizfIa42C1AvI6hy6glYlVCuQssaaK_KHo4HM1mK7Vp3nL",
+  "password": "cambiarcontra"
+}
