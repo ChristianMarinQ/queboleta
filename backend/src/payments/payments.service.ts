@@ -107,9 +107,9 @@ export class PaymentsService {
           currency_id: 'COP',
         })),
         back_urls: {
-          success: `${process.env.BACKEND_URL}/payments/success`,
-          failure: `${process.env.BACKEND_URL}/payments/failure`,
-          pending: `${process.env.BACKEND_URL}/payments/pending`,
+          success: `${process.env.FRONTEND_URL}/payments/success`,
+          failure: `${process.env.FRONTEND_URL}/payments/failure`,
+          pending: `${process.env.FRONTEND_URL}/payments/pending`,
         },
         auto_return: 'approved',
         notification_url: `${process.env.BACKEND_URL}/payments/webhook`,
