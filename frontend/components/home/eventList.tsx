@@ -1,12 +1,11 @@
 "use client";
 
-import { axiosClient } from "@/lib/axiosClient";
+import { api, axiosClient } from "@/lib/axiosClient";
 import { EventCard } from "./eventCard";
 import { useEffect, useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { AppEventType } from "@/types/global.types";
 import { useTranslations } from "next-intl";
-import { Link } from "@/navigation";
 
 const CATEGORY_LABELS: Record<string, string> = {
   CONCERT: "Conciertos",
@@ -22,14 +21,14 @@ export const EventList = () => {
 
   const getEvents = async () => {
     try {
-      const response = await axiosClient.get("/events");
-      setEvents(response.data);
+      const data = await api("/events");
+      setEvents(data);
     } catch (error: any) {
       console.error(error);
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.message,
+        description: error,
       });
     }
   };
@@ -49,7 +48,7 @@ export const EventList = () => {
   );
 
   return (
-    <div className="my-6 space-y-10">
+    <section className="space-y-4">
       <header>
         <h3 className="text-3xl font-bold tracking-tight">{t("title")}</h3>
         <p className="text-sm text-muted-foreground">{t("description")}</p>
@@ -63,9 +62,7 @@ export const EventList = () => {
             </h4>
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {items.map((event) => (
-                <Link key={event.id} href={`/events/${event.id}`}>
-                  <EventCard event={event} />
-                </Link>
+                <EventCard key={event.id} event={event} />
               ))}
             </div>
           </section>
@@ -73,6 +70,6 @@ export const EventList = () => {
       ) : (
         <p className="text-center text-muted-foreground">{t("not_found")}</p>
       )}
-    </div>
+    </section>
   );
 };

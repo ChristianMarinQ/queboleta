@@ -5,12 +5,12 @@ const links: { [key: string]: { title: string; href: string }[] } = {
   en: [
     { title: "Home", href: "/" },
     { title: "All Events", href: "/events" },
-    { title: "Contact Us", href: "/contact" },
+    { title: "Contact Us", href: "/help" },
   ],
   es: [
     { title: "Inicio", href: "/" },
     { title: "Todos los eventos", href: "/events" },
-    { title: "Contáctenos", href: "/contact" },
+    { title: "Contáctenos", href: "/help" },
   ],
 };
 
@@ -19,7 +19,7 @@ export const Footer = () => {
   const locale = useLocale();
 
   return (
-    <footer>
+    <footer className="border-t border-border">
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div>
@@ -41,7 +41,7 @@ export const Footer = () => {
           <div>
             <h3 className="mb-4 text-lg font-semibold">{t("follow")}</h3>
             <div className="flex space-x-4">
-              <Link href="#">
+              <Link href="https://facebook.com/queboletas" target="_blank">
                 <span className="sr-only">Facebook</span>
                 <svg
                   className="h-6 w-6"
@@ -56,7 +56,7 @@ export const Footer = () => {
                   />
                 </svg>
               </Link>
-              <Link href="#">
+              <Link href="https://instagram.com/queboletas" target="_blank">
                 <span className="sr-only">Instagram</span>
                 <svg
                   className="h-6 w-6"
@@ -71,7 +71,7 @@ export const Footer = () => {
                   />
                 </svg>
               </Link>
-              <Link href="#">
+              <Link href="https://x.com/queboletas" target="_blank">
                 <span className="sr-only">Twitter</span>
                 <svg
                   className="h-6 w-6"
@@ -85,8 +85,10 @@ export const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="mt-8 border-t border-border pt-8 text-center">
-          <p className="text-sm">© 2024 QueBoleta, All rights reserved.</p>
+      </div>
+      <div className="border-t border-border">
+        <div className="container mx-auto border-x border-border p-8 text-center text-sm">
+          © {new Date().getFullYear()} QueBoleta, All rights reserved.
         </div>
       </div>
     </footer>

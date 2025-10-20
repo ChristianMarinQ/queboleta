@@ -1,7 +1,5 @@
-import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { AppEventType, AppTicketType } from "@/types/global.types";
-import { Calendar, Hash, DollarSign } from "lucide-react";
 import QRCode from "react-qr-code";
 
 interface Props {
@@ -12,7 +10,7 @@ interface Props {
 export const Ticket = ({ event, ticket }: Props) => {
   return (
     <div className="perspective-1000">
-      <div className="ticket-3d shadow-3d group relative h-[290px] w-[700px] overflow-hidden rounded-xl border-2 border-border bg-card">
+      <div className="ticket-3d shadow-3d group relative h-[290px] w-[700px] overflow-hidden border-2 border-border bg-card">
         <div className="gradient-glow absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
         <div className="relative z-50 flex h-full">
@@ -54,26 +52,16 @@ export const Ticket = ({ event, ticket }: Props) => {
             </div>
           </div>
 
-          <div className="relative w-32 bg-muted/10">
-            <div className="flex flex-col items-center p-4">
-              <QRCode
-                value={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${ticket.id}`}
-                className="size-20"
-              />
+          <div className="bg-muted/10 relative w-40">
+            <div className="flex size-40 flex-col items-center bg-white/40 pt-2 backdrop-blur-sm">
+              <QRCode value={ticket.id} className="size-40" />
               <p className="font-experimental text-center text-xs text-muted-foreground">
                 {ticket.id.slice(-8).toUpperCase()}
               </p>
             </div>
 
-            {/* Artistic section placeholder */}
-            <div className="absolute bottom-0 right-0 flex h-32 w-full items-center justify-center bg-gradient-to-tr from-transparent to-primary/5">
-              <div className="rotate-12 transform text-4xl font-bold text-muted-foreground/20">
-                ※
-              </div>
-            </div>
-
             {/* Real time display simulation */}
-            <div className="absolute left-2 top-1/2 -translate-y-1/2 transform">
+            <div className="absolute bottom-1 left-2 -translate-y-1/2 transform">
               <p className="font-experimental border border-border bg-card px-1 py-0.5 text-xs text-muted-foreground">
                 REAL TIME DISPLAY
               </p>

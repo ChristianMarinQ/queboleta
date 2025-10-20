@@ -12,6 +12,7 @@ export const Trigger = () => {
       <CldUploadWidget
         uploadPreset="ml_default"
         onSuccess={(result, { widget }) => {
+          // @ts-ignore
           setResource(result?.info); // { public_id, secure_url, etc }
         }}
       >
@@ -23,7 +24,7 @@ export const Trigger = () => {
           return <Button onClick={handleOnClick}>Upload an Image</Button>;
         }}
       </CldUploadWidget>
-      <button onClick={() => console.log(resource)}>console</button>
+      <button>console</button>
     </>
   );
 };

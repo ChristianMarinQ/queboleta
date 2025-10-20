@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Card, CardContent } from "../ui/card";
 import { useLocale, useTranslations } from "next-intl";
 
@@ -60,25 +61,24 @@ export const CategoryList = () => {
   const locale = useLocale();
 
   return (
-    <section className="container mx-auto px-4 py-12">
+    <section>
       <h2 className="mb-8 text-center text-2xl font-bold">{t("category")}</h2>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {elements[locale].map((category: Category) => (
-          <Card
-            key={category.name}
-            className="relative h-40 transition-transform hover:scale-105"
-          >
-            <CardContent className="p-0">
-              <h3 className="absolute bottom-2 left-2 text-lg font-semibold text-white">
-                {category.name}
-              </h3>
-              <img
-                src={category.image}
-                alt={`${category.name} category`}
-                className="h-40 w-full object-cover"
-              />
-            </CardContent>
-          </Card>
+          <Link key={category.name} href="/events">
+            <Card className="relative h-40 transition-transform hover:scale-105">
+              <CardContent className="p-0">
+                <h3 className="absolute bottom-2 left-2 text-lg font-semibold text-white">
+                  {category.name}
+                </h3>
+                <img
+                  src={category.image}
+                  alt={`${category.name} category`}
+                  className="h-40 w-full object-cover"
+                />
+              </CardContent>
+            </Card>
+          </Link>
         ))}
       </div>
     </section>
