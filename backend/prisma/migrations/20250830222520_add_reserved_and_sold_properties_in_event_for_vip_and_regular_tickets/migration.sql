@@ -1,5 +1,0 @@
--- AlterTable
-ALTER TABLE "public"."Event" ADD COLUMN     "regularReserved" INTEGER NOT NULL DEFAULT 0,
-ADD COLUMN     "regularSold" INTEGER NOT NULL DEFAULT 0,
-ADD COLUMN     "vipReserved" INTEGER NOT NULL DEFAULT 0,
-ADD COLUMN     "vipSold" INTEGER NOT NULL DEFAULT 0;
