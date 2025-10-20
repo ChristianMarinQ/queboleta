@@ -15,8 +15,7 @@ async function main() {
     },
     update: {
       password: password1,
-    },
-    create: {
+    },    create: {
       fullnames: 'cristian',
       lastnames: 'marin',
       username: 'camilodavila',
