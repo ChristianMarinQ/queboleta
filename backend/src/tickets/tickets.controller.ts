@@ -45,6 +45,12 @@ export class TicketsController {
     return this.ticketsService.findOne(id);
   }
 
+  @Get('/verify/:id')
+  @ApiOkResponse({ type: TicketEntity, isArray: true })
+  verify(@Param('id') id: string) {
+    return this.ticketsService.verify(id);
+  }
+
   @Patch(':id')
   @ApiOkResponse({ type: TicketEntity })
   update(@Param('id') id: string, @Body() updateTicketDto: UpdateTicketDto) {
@@ -55,5 +61,11 @@ export class TicketsController {
   @ApiOkResponse({ type: TicketEntity })
   remove(@Param('id') id: string) {
     return this.ticketsService.remove(id);
+  }
+
+  @Post('mark-entry')
+  @ApiOkResponse({ type: TicketEntity })
+  markEntry(@Body() data: { ticketId: string }) {
+    return this.ticketsService.markEntry(data.ticketId);
   }
 }
