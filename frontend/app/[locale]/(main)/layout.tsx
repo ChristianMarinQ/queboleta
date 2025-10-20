@@ -41,7 +41,9 @@ export default function RootLayout({ children }: Props) {
   return (
     <div>
       <Navbar />
-      <main className="container mx-auto my-5 min-h-[59vh]">{children}</main>
+      <main className="container mx-auto min-h-[59vh] border-x border-border p-8">
+        {children}
+      </main>
       <Footer />
       <AutoLogout />
     </div>

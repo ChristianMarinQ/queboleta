@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import concertImage from "@/public/images/concert.jpg";
-import githubLogo from "@/public/github.svg";
-import googleLogo from "@/public/google.svg";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,14 +21,15 @@ import { useState } from "react";
 import { Loader2, Ticket } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { PasswordInput } from "@/components/ui/password-input";
-import { ButtonGroup } from "@/components/ui/button-group";
-import { axiosClient } from "@/lib/axiosClient";
+import { api } from "@/lib/axiosClient";
 import { useTicketStore } from "@/store/useTicketStore";
 import { useTranslations } from "next-intl";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const schema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
+  recaptcha: z.string().min(1, "Please verify that you are not a robot"),
 });
 
 export default function Login() {
@@ -45,14 +44,17 @@ export default function Login() {
     defaultValues: {
       email: "",
       password: "",
+      recaptcha: "asd",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof schema>) => {
     try {
       setLoading(true);
-      const response = await axiosClient.post("/auth/login", values);
-      console.log(response);
+      const response = await api("/auth/login", {
+        method: "POST",
+        data: values,
+      });
 
       toast({
         title: "Success 🎉",
@@ -62,15 +64,11 @@ export default function Login() {
       setIsAuth(true);
       router.push("/");
     } catch (error: any) {
-      const codes = [400, 401, 403];
-      const isBadRequest = codes.includes(error.response.status);
-
+      console.error(error);
       toast({
         variant: "destructive",
-        title: isBadRequest ? "Email or password incorrect 😵" : "Error",
-        description: isBadRequest
-          ? "Please check your credentials."
-          : error.message,
+        title: "Error trying to log into your account",
+        description: `${error}`,
       });
     } finally {
       setLoading(false);
@@ -128,6 +126,19 @@ export default function Login() {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="recaptcha"
+                render={({ field }) => (
+                  <FormItem>
+                    <ReCAPTCHA
+                      sitekey={process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY!}
+                      onChange={(token) => field.onChange(token)}
+                    />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
                 {t("submit")}
@@ -143,19 +154,19 @@ export default function Login() {
             </p>
             <p className="text-center text-sm italic md:text-start">
               Forgot your password?{" "}
-              <Link href="/auth/register" className="not-italic text-blue-500">
+              <Link
+                href="/auth/request-reset"
+                className="not-italic text-blue-500"
+              >
                 Reset password
               </Link>
             </p>
-          </div>
-          <div className="my-4 w-full">
-            <SocialLogin />
           </div>
         </div>
         <div className="flex flex-col items-center text-center text-sm">
           <p className="text-muted-foreground">
             {t("by_continue")}{" "}
-            <Link href="#" className="text-blue-500">
+            <Link href="/legal/terms" className="text-blue-500">
               {t("terms")}
             </Link>
           </p>
@@ -173,7 +184,7 @@ export default function Login() {
           alt="login"
           width={undefined}
           height={undefined}
-          className="h-full w-full rounded-lg object-cover object-center"
+          className="h-full w-full object-cover object-center"
         />
         <div className="absolute left-10 top-10 max-w-sm text-white">
           <div className="flex items-center gap-2">
@@ -189,22 +200,3 @@ export default function Login() {
     </div>
   );
 }
-
-const SocialLogin = () => {
-  return (
-    <ButtonGroup>
-      <Button className="w-full" size="lg">
-        <Image
-          src={githubLogo}
-          alt="github"
-          width={20}
-          height={20}
-          className="dark:invert"
-        />
-      </Button>
-      <Button className="w-full" size="lg">
-        <Image src={googleLogo} alt="google" width={20} height={20} />
-      </Button>
-    </ButtonGroup>
-  );
-};

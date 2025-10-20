@@ -11,9 +11,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { axiosClient } from "@/lib/axiosClient";
+import { api } from "@/lib/axiosClient";
 import { AppEventType } from "@/types/global.types";
-import { CalendarIcon, Loader2, MapPinIcon, ShoppingCart } from "lucide-react";
+import {
+  CalendarIcon,
+  Loader2,
+  MapPinIcon,
+  ReceiptJapaneseYen,
+} from "lucide-react";
 import { useParams } from "next/navigation";
 import { usePathname, useRouter } from "@/navigation";
 import { useEffect, useState } from "react";
@@ -32,51 +37,28 @@ export default function Page() {
 
   const { id } = useParams();
   const path = usePathname();
-  const router = useRouter();
 
   useEffect(() => {
-    // const check = user.cart.eventsIds?.includes(id as string);
-    const check = false;
-    setIsAdded(check);
-
-    axiosClient
-      .get(`/events/${id}`)
-      .then((response) => {
+    const fetchEvent = async () => {
+      try {
         setIsLoading(true);
-        setEvent(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-        router.push("/404");
-      })
-      .finally(() => {
+        const data = await api(`/events/${id}`);
+        setEvent(data);
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Error fetching event",
+          description: `${error}`,
+        });
+      } finally {
         setIsLoading(false);
-      });
+      }
+    };
+    fetchEvent();
   }, [user]);
 
-  const handleAdd = async () => {
-    try {
-      await axiosClient.put("/cart/add", {
-        userId: user.id,
-        eventId: id,
-      });
-      setIsAdded(true);
-      toast({
-        title: "Added to cart",
-        description: "Event added to cart",
-      });
-    } catch (error: any) {
-      console.error(error);
-      toast({
-        variant: "destructive",
-        title: "Error adding to cart",
-        description: "Failed to add to cart",
-      });
-    }
-  };
-
   return (
-    <div className="container mx-auto px-4 py-8">
+    <section>
       <Card className="overflow-hidden">
         {isLoading && <Loader2 className="h-7 w-7 animate-spin" />}
         {!isLoading && event ? (
@@ -86,13 +68,13 @@ export default function Page() {
                 <img
                   src={event.poster}
                   alt="Event poster"
-                  className="w-full object-cover"
+                  className="w-fullobject-cover"
                 />
               </AspectRatio>
               <div className="flex w-fit items-center justify-center bg-stone-50 p-2">
                 <QRCode
                   viewBox={`0 0 256 256`}
-                  value={`http://localhost:3000${path}`}
+                  value={`${process.env.NEXT_PUBLIC_FRONTEND_URL}${path}`}
                   className="h-60 w-60"
                 />
               </div>
@@ -166,15 +148,12 @@ export default function Page() {
               </CardContent>
               <CardFooter>
                 <div className="flex w-full flex-col gap-2">
-                  <Button
-                    className="w-full"
-                    onClick={handleAdd}
-                    disabled={isAdded}
-                  >
-                    <ShoppingCart className="mr-2 h-4 w-4" />
-                    {t("cart")}
-                  </Button>
-                  <BuyModal event={event} userId={user.id} />
+                  <BuyModal event={event} userId={user.id}>
+                    <Button className="w-full" disabled={isAdded}>
+                      <ReceiptJapaneseYen className="mr-2 h-4 w-4" />
+                      {t("order")}
+                    </Button>
+                  </BuyModal>
                 </div>
               </CardFooter>
             </div>
@@ -183,6 +162,6 @@ export default function Page() {
           <p>{t("not_found")}</p>
         )}
       </Card>
-    </div>
+    </section>
   );
 }
