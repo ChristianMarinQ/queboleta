@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd6a6a3e-8da5-4758-b678-edc483eb0c92" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/mail/templates/pages/login.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/mail/templates/pages/login.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/mail/templates/pages/order-rejected.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/mail/templates/pages/order-rejected.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/mail/templates/pages/reset-password.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/mail/templates/pages/reset-password.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/mail/templates/pages/welcome.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/mail/templates/pages/welcome.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/mail/templates/partials/layout.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/mail/templates/partials/layout.hbs" afterDir="false" />
-    </list>
+    <list default="true" id="fd6a6a3e-8da5-4758-b678-edc483eb0c92" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,7 +64,7 @@
       <workItem from="1760934053860" duration="1229000" />
       <workItem from="1760938626911" duration="163000" />
       <workItem from="1760938802614" duration="26000" />
-      <workItem from="1760938855525" duration="606000" />
+      <workItem from="1760938855525" duration="930000" />
     </task>
     <servers />
   </component>
