@@ -16,15 +16,17 @@ export class AuthController {
   @Post('/login')
   @ApiOkResponse({ type: AuthEntity })
   async login(
-    @Body() { email, password }: LoginDto,
+    @Body() { email, password, recaptcha }: LoginDto,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const payload = await this.authService.login(email, password);
+    const payload = await this.authService.login(email, password, recaptcha);
 
     res.cookie('token', payload.accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      domain:
+        process.env.NODE_ENV === 'production' ? '.queboletas.shop' : undefined,
+      sameSite: 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
@@ -40,10 +42,13 @@ export class AuthController {
   @Post('/activate/:id')
   @ApiOkResponse()
   async activeUser(@Param('id') userId: string) {
-    await this.authService.activeUser(userId);
-    return {
-      message: 'User activated.',
-    };
+    return await this.authService.activate(userId);
+  }
+
+  @Post('/desactivate/:id')
+  @ApiOkResponse()
+  async desactivateUser(@Param('id') userId: string) {
+    return await this.authService.desactivate(userId);
   }
 
   @Post('/logout')
@@ -51,8 +56,10 @@ export class AuthController {
   logout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('token', {
       httpOnly: true,
-      sameSite: 'strict',
+      sameSite: 'lax',
       secure: process.env.NODE_ENV === 'production',
+      domain:
+        process.env.NODE_ENV === 'production' ? '.queboletas.shop' : undefined,
     });
     return {
       message: 'Logged out successfully',
