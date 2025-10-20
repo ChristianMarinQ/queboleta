@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd6a6a3e-8da5-4758-b678-edc483eb0c92" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/prisma/seed.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/prisma/seed.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/app.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/app.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/orders/dto/update-order.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/orders/dto/update-order.dto.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +66,7 @@
       <workItem from="1760934053860" duration="1229000" />
       <workItem from="1760938626911" duration="163000" />
       <workItem from="1760938802614" duration="26000" />
-      <workItem from="1760938855525" duration="1301000" />
+      <workItem from="1760938855525" duration="1622000" />
     </task>
     <servers />
   </component>
