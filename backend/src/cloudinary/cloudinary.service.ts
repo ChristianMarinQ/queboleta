@@ -19,28 +19,28 @@ export class CloudinaryService {
     try {
       const result: UploadApiResponse = await new Promise((resolve, reject) => {
         cloudinary.uploader
-          .upload_stream(
-            {
-              folder: folder || 'uploads',
-              resource_type: 'image' as const,
-              format: 'webp', // Convertir a WebP para mejor compresión
-              quality: 'auto',
-              fetch_format: 'auto',
-            },
-            (error, result) => {
-              // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
-              if (error) reject(error);
-              else resolve(result as UploadApiResponse);
-            },
-          )
-          .end(fileBuffer);
+            .upload_stream(
+                {
+                  folder: folder || 'uploads',
+                  resource_type: 'image' as const,
+                  format: 'webp', // Convertir a WebP para mejor compresión
+                  quality: 'auto',
+                  fetch_format: 'auto',
+                },
+                (error, result) => {
+                  // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
+                  if (error) reject(error);
+                  else resolve(result as UploadApiResponse);
+                },
+            )
+            .end(fileBuffer);
       });
 
       return result.secure_url;
     } catch (error) {
       console.error('Error uploading to Cloudinary:', error);
       throw new InternalServerErrorException(
-        'Error uploading image to cloud storage',
+          'Error uploading image to cloud storage',
       );
     }
   }
@@ -56,7 +56,7 @@ export class CloudinaryService {
     } catch (error) {
       console.error('Error removing from Cloudinary:', error);
       throw new InternalServerErrorException(
-        'Error removing image from cloud storage',
+          'Error removing image from cloud storage',
       );
     }
   }
